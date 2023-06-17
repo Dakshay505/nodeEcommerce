@@ -5,10 +5,7 @@ export const getAllBrand = async (req,resp)=>{
 
     try {
         const brand = await Brand.find();
-        resp.status(200).json({
-            success:true,
-            brand
-        })
+        resp.status(200).json(brand);
     } catch (error) {
         resp.status(400).json({
             success:false,

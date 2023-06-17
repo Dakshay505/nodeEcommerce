@@ -5,10 +5,7 @@ export const getAllCategory = async (req,resp)=>{
 
     try {
         const category = await Category.find();
-        resp.status(200).json({
-            success:true,
-            category
-        })
+        resp.status(200).json(category)
     } catch (error) {
         resp.status(400).json({
             success:false,
