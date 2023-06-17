@@ -4,7 +4,10 @@ import { addToCart, deleteFromCart, getAllCartItemsByUser, updateCartById } from
 const router = express.Router();
 
 router.route("/add").post(addToCart);
-router.route("/:id").get(getAllCartItemsByUser).delete(deleteFromCart).patch(updateCartById);
+
+router.route("/allcart").get(getAllCartItemsByUser)
+
+router.route("/:id").delete(deleteFromCart).patch(updateCartById);
 
 
 

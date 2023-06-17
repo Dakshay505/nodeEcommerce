@@ -4,7 +4,7 @@ import Cart from "../model/cartModel.js";
 // get all items in cart by user
 export const getAllCartItemsByUser = async (req,resp)=>{
    try {
-    const user = req.params.id;
+    const user = req.user.id;
     const cart = await Cart.find({user:user}).populate("user").populate("product").exec();
     resp.status(200).json(cart);
     

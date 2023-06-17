@@ -39,8 +39,9 @@ export const getAllOrder =async (req,resp) => {
 export const getAllOrderItemsByUser = async (req,resp)=>{
 
    try {
-    const user = req.params.id;
+    const user = req.user.id;
     const order = await Order.find({user:user}).populate("user").exec();
+    console.log(order);
     resp.status(200).json(order);
     
    } catch (error) {
@@ -54,7 +55,10 @@ export const getAllOrderItemsByUser = async (req,resp)=>{
 
 export const addToOrder = async(req,resp)=>{
    try {
-    const order = await Order.create(req.body);
+    console.log("re.body",req.body)
+    const user = req.user.id;
+    const {items,totalAmount,totalItems,paymentMethod,status,selectedAddress} = req.body;
+    const order = await Order.create({items,totalAmount,totalItems,user,paymentMethod,status,selectedAddress});
     const result = await order.populate("user");
     resp.status(201).json(result);
     

@@ -60,6 +60,7 @@ export const getUserById = async (req,resp)=>{
 export const updateUserById = async (req,resp)=>{
     try {
         const user = await User.findByIdAndUpdate(req.user.id,req.body,{new:true});
+        console.log(user);
         resp.status(200).json(user);
     } catch (error) {
         resp.status(400).json({
