@@ -55,5 +55,19 @@ export const updateCartById = async (req,resp)=>{
         })
     }
 }
+// export dellete all cart item after order
 
-
+export const delleteAllItemInCart = async (req,resp)=>{
+    try {
+        const user = req.user;
+         await Cart.deleteMany({user:user.id});
+        resp.status(200).json({
+            success:true
+        });
+    } catch (error) {
+        resp.status(400).json({
+            success:false,
+            error
+        })
+    }
+}

@@ -4,9 +4,10 @@ import { addToOrder, deleteFromOrder,getAllOrder, getAllOrderItemsByUser, update
 
 const router = express.Router();
 
-router.route("/").post(addToOrder).get(getAllOrder);
-
-router.route("/:id").get(getAllOrderItemsByUser).delete(deleteFromOrder).patch(updateOrderById);
+router.route("/").post(addToOrder);
+router.route("/admin/all").get(getAllOrder);
+router.route("/me").get(getAllOrderItemsByUser);
+router.route("/:id").delete(deleteFromOrder).patch(updateOrderById);
 
 
 

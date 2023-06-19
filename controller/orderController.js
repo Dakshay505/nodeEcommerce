@@ -78,6 +78,7 @@ export const deleteFromOrder = async(req,resp)=>{
 
 }
 // 
+
 export const updateOrderById = async (req,resp)=>{
     try {
         const order = await Order.findByIdAndUpdate(req.params.id,req.body,{new:true});
@@ -89,5 +90,4 @@ export const updateOrderById = async (req,resp)=>{
         })
     }
 }
-
 

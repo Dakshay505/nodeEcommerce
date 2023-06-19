@@ -13,7 +13,7 @@ import session from "express-session";
 
 import User from "./model/userModel.js";
 
-const stripe = Stripe(process.env.SK_TEST);
+const stripe =new Stripe("sk_test_51MEp3KSCQD0O4QilA5H36OcvkvZXQ67k2t6gnJQREz83YHPSRP6GrtS7rZIcU6Ens1XXaItuahsa1sicBx4UHc9Z00QPMZ7Ksj");
 // const opts = {};
 // opts.jwtFromRequest = cookieExtractor;
 // opts.secretOrKey = process.env.JWT_KEY;
@@ -131,14 +131,17 @@ const calculateOrderAmount = (items) => {
 };
 
 app.post("/create-payment-intent", async (req, res) => {
-  const { items } = req.body;
+  const { totalAmount,orderId } = req.body;
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items),
-    currency: "inr",
+    amount: totalAmount * 100, // for decimal compensation
+    currency: 'inr',
     automatic_payment_methods: {
       enabled: true,
+    },
+    metadata: {
+      orderId,
     },
   });
 
@@ -146,7 +149,6 @@ app.post("/create-payment-intent", async (req, res) => {
     clientSecret: paymentIntent.client_secret,
   });
 });
-
 // handling the error
 app.use(errorMiddleware);
 
